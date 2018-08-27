@@ -1,5 +1,5 @@
 <template>
-    <div class="slide-show">
+    <div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
         <div class="slide-img">
             <a :href="slides[nowIndex].href">
                 <img :src="slides[nowIndex].src">
@@ -55,8 +55,12 @@
             },
             runInv () {
                 this.InvId = setInterval( () => {
-                    //this.goto(this.nextIndex)
+                    // console.log(123)
+                    this.goto(this.nextIndex)
                 },this.inv)
+            },
+            clearInv () {
+                clearInterval(this.InvId)
             }
     },
     mounted () {
