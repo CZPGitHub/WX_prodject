@@ -2,13 +2,19 @@
     <div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
         <div class="slide-img">
             <a :href="slides[nowIndex].href">
-                <img :src="slides[nowIndex].src">
+                <!-- <img :src="slides[nowIndex].src"> -->
+                <transition name="slide-trans">
+                    <img v-if="isShow" :src="slides[nowIndex].src" >
+                </transition>
+                <transition name="slide-trans-old">
+                    <img v-if="!isShow" :src="slides[nowIndex].src" >
+                </transition>
             </a>
         </div>
         <h2>{{slides[nowIndex].title}}</h2>
         <ul class="slide-pages">
             <li @click="goto(prevIndex)">&lt;</li>
-            <li v-for="item,index in slides" @click="goto(index)">
+            <li v-for="(item,index) in slides" @click="goto(index)">
                 <a :class="{on: index === nowIndex}">{{ index +1 }}</a>
             </li>
             <li @click="goto(nextIndex)">&gt;</li>
@@ -30,7 +36,8 @@
     },
         data () {
             return {
-                nowIndex:0
+                nowIndex:0,
+                isShow:true
             }
         },
         computed: {
@@ -51,7 +58,13 @@
         },
         methods:{
             goto (index) {
-                this.nowIndex = index
+                this.isShow = false
+                setTimeout(()=>{
+                    this.isShow = true
+                    this.nowIndex = index
+                    this.$emit("onchange",index)
+                },100)
+                // this.nowIndex = index
             },
             runInv () {
                 this.InvId = setInterval( () => {

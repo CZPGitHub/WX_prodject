@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="index-right">
-      <slide-show :slides="slides" :inv="speedTime"></slide-show>
+      <slide-show :slides="slides" :inv="speedTime" @onchange="slideChangeMonitor"></slide-show>
       <div class="index-board-list">
         <div class="index-board-item" v-for="(item,index) in boardList"
           :class="[{ 'line-last' : index % 2 !==0 },'index-board-'+ item.id ]" >
@@ -55,6 +55,11 @@ export default {
     }, (err) => {
       console.log(err)
     })
+  },
+  methods:{
+    slideChangeMonitor (index) {
+      // console.log("slideChangeMonitor==",index)
+    }
   },
   data () {
     return {
