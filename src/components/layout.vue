@@ -5,9 +5,11 @@
         <img src="../assets/logo.png">
         <div class="head-nav">
           <ul class="nav-list">
-            <li @click="logClick">登录</li>
+            <li @click="logClick" v-show="isLogin">登录</li>
+            <li v-show="!isLogin">{{userInfo}}</li>
             <li class="nav-pile">|</li>
-            <li @click="regClick">注册</li>
+            <li @click="regClick" v-show="isLogin">注册</li>
+            <li @click="regClick" v-show="!isLogin">退出</li>
             <li class="nav-pile">|</li>
             <li @click="aboutClick">关于</li>
           </ul>
@@ -26,11 +28,10 @@
       <p>关于</p>
     </my-dialog>
     <my-dialog :is-show="isShowLogtDialog" @on-close="closeDialog('isShowLogtDialog')">
-      <p>登录</p>
-      <log-from></log-from>
+      <log-from @has-log="onSuccessLog"></log-from>
     </my-dialog>
     <my-dialog :is-show="isShowregDialog" @on-close="closeDialog('isShowregDialog')">
-      <p>注册</p>
+
       <reg-from></reg-from>
     </my-dialog>
   </div>
@@ -50,7 +51,9 @@ import regFrom from "./regFrom";
     return {
       isShowAboutDialog: false,
       isShowLogtDialog: false,
-      isShowregDialog: false
+      isShowregDialog: false,
+      isLogin:true,
+      userInfo:""
     }
   },
   methods: {
@@ -62,6 +65,12 @@ import regFrom from "./regFrom";
     },
     regClick () {
       this.isShowregDialog = true
+    },
+    onSuccessLog (data) {
+      console.log(data)
+      this.isShowLogtDialog = false
+      this.isLogin = false
+      this.userInfo = data.name
     },
     closeDialog (attr) {
       // console.log(attr)
@@ -215,5 +224,9 @@ import regFrom from "./regFrom";
   }
   .g-form-btn {
     padding-left: 100px;
+  }
+  .g-form-error{
+    color:red;
+    padding-left:15px;
   }
 </style>

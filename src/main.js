@@ -3,8 +3,9 @@
 import Vue from 'vue'
 import Layout from './components/layout'
 import VueRouter from 'vue-router'
-import IndexPage from './pages/index'
 import VueRresource from 'vue-resource'
+import IndexPage from './pages/index'
+import DetailPage from './pages/detail'
 Vue.use(VueRouter)
 Vue.use(VueRresource)
 let router = new VueRouter({
@@ -13,6 +14,10 @@ let router = new VueRouter({
     {
       path: '/',
       component: IndexPage
+    },
+    {
+      path:'/detail',
+      component:DetailPage
     }
   ]
 })
