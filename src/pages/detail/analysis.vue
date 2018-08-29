@@ -10,7 +10,7 @@
                   购买数量：
               </div>
               <div class="sales-board-line-right">
-                <!-- <v-counter @on-change="onParamChange('buyNum', $event)"></v-counter> -->
+                 <v-counter></v-counter> 
               </div>
           </div>
           <div class="sales-board-line">
@@ -27,9 +27,7 @@
                   有效时间：
               </div>
               <div class="sales-board-line-right">
-                  <!-- <v-chooser
-                  :selections="periodList"
-                  @on-change="onParamChange('period', $event)"></v-chooser> -->
+                   <v-chooser :selections="periodList" ></v-chooser> 
               </div>
           </div>
           <div class="sales-board-line">
@@ -37,9 +35,7 @@
                   产品版本：
               </div>
               <div class="sales-board-line-right">
-                  <!-- <v-mul-chooser
-                  :selections="versionList"
-                  @on-change="onParamChange('versions', $event)"></v-mul-chooser> -->
+                   <v-mul-chooser :selections="versionList" ></v-mul-chooser> 
               </div>
           </div>
           <div class="sales-board-line">
@@ -87,10 +83,15 @@
 
 <script>
 import VSelection from "../../components/base/selection"
-
+import VCounter from "../../components/base/counter"
+import VChooser from "../../components/base/chooser"
+import VMulChooser from "../../components/base/multiplyChooser"
 export default {
   components:{
-    VSelection
+    VSelection,
+    VCounter,
+    VChooser,
+    VMulChooser
   },
   data () {
     return {
@@ -106,6 +107,34 @@ export default {
         },
         {
           label: '高级版',
+          value: 2
+        }
+      ],
+      periodList:[
+        {
+          label: '半年',
+          value: 0
+        },
+        {
+          label: '一年',
+          value: 1
+        },
+        {
+          label: '三年',
+          value: 2
+        }
+      ],
+      versionList:[
+        {
+          label: '客户版',
+          value: 0
+        },
+        {
+          label: '代理商版',
+          value: 1
+        },
+        {
+          label: '专家版',
           value: 2
         }
       ]
