@@ -97,7 +97,7 @@ export default {
                 key: 'amount'
                 }
             ],
-            tableData: [],
+            // tableData: [],
             currentOrder: 'asc',
         }
     },
@@ -107,19 +107,39 @@ export default {
             this.getTableData()
         }
     },
+    computed:{
+      tableData () {
+        return this.$store.getters.getOrderList
+      }
+    },
     methods:{
         productChange (obj) {
-            this.productId = obj.value
             // console.log(obj)
-            this.getTableData()
+        this.$store.commit('updateparams',{
+          key:"productId",
+          val:obj.value
+        })
+        this.$store.dispatch('fetchOrderList')
+            // this.productId = obj.value        
+            // this.getTableData()
         },
         getStartDate (date) {
-            this.startDate = date
-            this.getTableData()
+            // this.startDate = date
+            // this.getTableData()
+            this.$store.commit('updateparams',{
+              key:"startDate",
+              val:date
+            })
+            this.$store.dispatch('fetchOrderList')
         },
         getEndDate (date) {
-            this.endDate = date
-            this.getTableData()
+            // this.endDate = date
+            // this.getTableData()
+            this.$store.commit('updateparams',{
+              key:'endDate',
+              val:date
+            })
+            this.$store.dispatch('fetchOrderList')            
         },
         getTableData () {
             let reqParams = {
@@ -151,7 +171,9 @@ export default {
         }
     },
     mounted () {
-        this.getTableData()
+        // this.getTableData()
+        this.$store.dispatch('fetchOrderList')
+        console.log(this.$store)
     }
 }
 </script>
