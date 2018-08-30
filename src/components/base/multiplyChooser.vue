@@ -33,7 +33,7 @@ export default {
     },
     methods:{
         toggleSelection (index) {
-            console.log(index)
+            // console.log(index)
             if(this.nowIndexes.indexOf(index) === -1){
                 this.nowIndexes.push(index)
             }else{
@@ -44,6 +44,10 @@ export default {
                 // this.nowIndexes.splice(index,1)
                 // console.log(this.nowIndexes.splice(index,index))
             }
+            let nowObjArray = _.map(this.nowIndexes,(idx)=>{
+                return this.selections[idx]
+            })
+            this.$emit("on-change",nowObjArray)
         },
         checkActive (index) {
             return this.nowIndexes.indexOf(index) !== -1
