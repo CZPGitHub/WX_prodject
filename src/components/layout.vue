@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="resetComponent">
     <div class="app-head">
       <div class="app-head-inner">
         <router-link :to="{path:'/'}">
@@ -44,6 +44,7 @@
 import Dialog from "./dialog";
 import LogFrom from "./logFrom";
 import regFrom from "./regFrom";
+import { eventBus } from "../eventHub"
   export default {
     components:{
       myDialog:Dialog,
@@ -78,6 +79,10 @@ import regFrom from "./regFrom";
     closeDialog (attr) {
       // console.log(attr)
       this[attr] = false
+    },
+    resetComponent () {
+      //全局事件eventBus 进行注册 父组件 向所有 子组件传递
+      eventBus.$emit('reset-component')
     }
   }
 }
